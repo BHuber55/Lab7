@@ -1,6 +1,7 @@
 #if !defined (QUEUELINKED_H)
 #define QUEUELINKED_H
 
+//write enqueue and dequeue
 #include "NextNode.h"
 
 template < class T >
@@ -85,15 +86,25 @@ void QueueLinked<T>::enqueue(T* item)
 {
     NextNode<T>* node = new NextNode<T>(item);
 
+	//this is for a singular linked circular list..
     //DO THIS (enqueueing the first item is a special case)
 
+	//not sure about this case.
+	if (size() == 0)
+	{
+		node->getNext();
 
+		back->setNext(node);
+	}
 
+	else if (!isEmpty())
+	{
+		NextNode<T>* curr = back->getNext();	//get the next-> from top of list node.
+		node->setNext(curr);
+		back->setNext(node);	//because you have to reassign back to point to the new back..
+	}
 
-
-
-
-
+	delete curr;
 
     sze++;
 }
@@ -106,17 +117,26 @@ T* QueueLinked<T>::dequeue()
     //DO THIS (dequeueing the last item is a special case)
     //also, check that there are items before dequeueing
 
+	if (size() == 1)
+	{
+		dequeueAll();
+	}
+
+	else if (!isEmpty())
+	{
+		//this just sets the current 
+		NextNode<T>* curr = getItem();
+		curr->back->getNext();
+
+		NextNode<T>* prev = NULL;
+		prev 
+
+		//now we need to actually delete curr and set pointers correctly again.
 
 
 
-
-
-
-
-
-
-
-
+		sze--;
+	}
 
     return item;
 }
